@@ -6,7 +6,6 @@ import "CoreLibs/timer"
 playdate.display.setRefreshRate(20)
 
 local gfx = playdate.graphics
-local spritelib = gfx.sprite
 local screenWidth = playdate.display.getWidth()
 local screenHeight = playdate.display.getHeight()
 
@@ -15,7 +14,6 @@ local playerSprite = nil
 local ennemySprites = {}
 
 function isSpriteOutOfScreen(sprite)
-  local screenWidth = playdate.display.getWidth()
   local spriteWidth = sprite.width
   local spriteX = sprite.x
 
@@ -83,9 +81,6 @@ function playdate.update()
   gfx.sprite.update()
   gfx.drawText("Score: " .. score, 320, 5)
 
-
-
-  gfx.drawText("Pos: " .. pos, 0, 5)
   playdate.timer.updateTimers()
 
 
