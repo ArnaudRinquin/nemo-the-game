@@ -5,6 +5,7 @@ class('Ennemy').extends(gfx.sprite)
 function Ennemy:init(scoreboard)
   Ennemy.super.init(self)
   assert(ennemyImage)
+  self.speed = math.random(5, 15)
   self:setImage(ennemyImage)
   self:setCollideRect(5, 12, 36, 24)
   self:reset()
@@ -13,7 +14,7 @@ function Ennemy:init(scoreboard)
 end
 
 function Ennemy:update()
-  self:moveBy( -10, 0 )
+  self:moveBy( -self.speed, 0 )
   if (isSpriteOutOfScreen(self)) then
     self.scoreboard:increment()
     self:reset()
