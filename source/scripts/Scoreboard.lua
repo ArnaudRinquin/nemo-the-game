@@ -25,7 +25,6 @@ end
 function Scoreboard:init()
   Scoreboard.super.init(self)
   self.score = 0
-  self:moveTo(40, 5)
   self:setZIndex(100)
   self:setCenter(0, 0)
   self:add()
@@ -36,9 +35,10 @@ function Scoreboard:update()
   local displayTextWidth, displayTextHeight = gfx.getTextSize(displayString)
   local displayImage = gfx.image.new(displayTextWidth, displayTextHeight)
   gfx.pushContext(displayImage)
-    gfx.drawText(displayString, 0, 0)
+    gfx.drawTextAligned(displayString, 0, 0, kTextAlignLeft)
   gfx.popContext()
   self:setImage(displayImage)
+  self:moveTo(screenWidth - displayImage.width - 5, 5)
 end
 
 function Scoreboard:increment()
