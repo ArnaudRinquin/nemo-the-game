@@ -8,6 +8,8 @@ function Ennemy:init(scoreboard)
   self.speed = math.random(5, 15)
   self:setImage(ennemyImage)
   self:setCollideRect(5, 12, 36, 24)
+  self:setGroups({GROUP_ENNEMY})
+  self:setCollidesWithGroups({GROUP_PLAYER})
   self:reset()
   self:add()
   self.scoreboard = scoreboard
@@ -15,6 +17,15 @@ end
 
 function Ennemy:update()
   self:moveBy( -self.speed, 0 )
+
+  local actualX, actualY, collisions, lenght = self:moveWithCollisions( self.x - self.speed, self.y)
+  for index, collision in ipairs(collisions) do
+    local collidedObject = collision['other']
+    if collidedObject:isa(Player) then
+      self.scoreboard:reset()
+    end
+end
+
   if (isSpriteOutOfScreen(self)) then
     self.scoreboard:increment()
     self:reset()
@@ -31,4 +42,3 @@ function isSpriteOutOfScreen(sprite)
   local spriteX = sprite.x
   return spriteX < -spriteWidth/2 or spriteX > screenWidth + spriteWidth/2
 end
-

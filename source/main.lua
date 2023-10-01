@@ -12,6 +12,9 @@ gfx = playdate.graphics
 screenWidth = playdate.display.getWidth()
 screenHeight = playdate.display.getHeight()
 
+GROUP_PLAYER = 1
+GROUP_ENNEMY = 2
+
 local function initialize()
   local scoreboard = Scoreboard()
   Player(scoreboard)
