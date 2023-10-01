@@ -2,19 +2,20 @@ local gfx = playdate.graphics
 local ennemyImage = gfx.image.new("images/fish-2")
 
 class('Ennemy').extends(gfx.sprite)
-function Ennemy:init()
+function Ennemy:init(scoreboard)
   Ennemy.super.init(self)
   assert(ennemyImage)
   self:setImage(ennemyImage)
   self:setCollideRect(5, 12, 36, 24)
   self:reset()
   self:add()
+  self.scoreboard = scoreboard
 end
 
 function Ennemy:update()
   self:moveBy( -10, 0 )
   if (isSpriteOutOfScreen(self)) then
-    score = score + 1
+    self.scoreboard:increment()
     self:reset()
   end
 end

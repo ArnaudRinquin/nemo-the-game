@@ -1,7 +1,7 @@
 local gfx = playdate.graphics
 
 class('Player').extends(gfx.sprite)
-function Player:init()
+function Player:init(scoreboard)
   Player.super.init(self)
   local playerImage = gfx.image.new("images/fish")
   assert(playerImage)
@@ -9,6 +9,7 @@ function Player:init()
   self:setCollideRect(5, 12, 36, 24)
   self:moveTo(0, screenHeight / 2)
   self:add()
+  self.scoreboard = scoreboard
 end
 
 function Player:update()
@@ -21,6 +22,6 @@ function Player:update()
   local collisions = self:overlappingSprites()
 
   if #collisions > 0 then
-    score = 0
+    self.scoreboard:reset()
   end
 end
