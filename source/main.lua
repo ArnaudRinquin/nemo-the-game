@@ -58,16 +58,16 @@ end
 initialize()
 
 function playdate.update()
-
-  local c = playdate.getCrankPosition()
-  local pos = c < 180 and c / 180 * screenHeight or (360 - c) / 180 * screenHeight
-  playerSprite:moveTo( playerSprite.width/2,  pos)
+  local c = playdate.getCrankPosition() - 90
+  local rad = math.rad(c)
+  local y = math.sin(rad) * screenHeight / 2 + screenHeight / 2
+  playerSprite:moveTo( playerSprite.width/2,  y)
 
   for i = 1,#ennemySprites do
     local ennemySprite = ennemySprites[i]
     ennemySprite:moveBy( -10, 0 )
     if (isSpriteOutOfScreen(ennemySprite)) then
-      score += 1
+      score = score + 1
       resetEnnemy(ennemySprite)
     end
   end
